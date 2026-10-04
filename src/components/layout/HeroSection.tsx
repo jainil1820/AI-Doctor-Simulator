@@ -28,7 +28,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onStartSimulation }) =
           className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-500/10 dark:bg-blue-500/20 text-blue-700 dark:text-blue-300 border border-blue-500/30 backdrop-blur-md"
         >
           <Sparkles className="w-3.5 h-3.5" />
-          8th Standard National Science Fair Demonstration
+          9th Standard National Science Fair Demonstration
         </motion.div>
 
         {/* Main Headings */}

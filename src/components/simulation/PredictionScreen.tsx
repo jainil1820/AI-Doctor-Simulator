@@ -16,6 +16,7 @@ import { SYMPTOMS_LIST } from '../../data/fictionalDataset';
 import { ConfidenceGauge } from '../charts/ConfidenceGauge';
 import { SymptomRadarChart, CategoryBarChart } from '../charts/PatternCharts';
 import { DisclaimerBanner } from '../layout/DisclaimerBanner';
+import { DiseaseSupportiveCare } from './DiseaseSupportiveCare';
 import { playClickSound, playSuccessChime } from '../../utils/audio';
 
 interface PredictionScreenProps {
@@ -158,6 +159,12 @@ export const PredictionScreen: React.FC<PredictionScreenProps> = ({
           </div>
         </div>
       </div>
+
+      {/* Supportive Care / આરોગ્ય સહાય Section (Source-Based Gujarati & English) */}
+      <DiseaseSupportiveCare
+        primaryCategory={result.category}
+        differentialCategories={result.allCategoryScores}
+      />
 
       {/* Interactive Tabs Header */}
       <div className="flex flex-wrap items-center gap-2 border-b border-slate-200 dark:border-slate-800 pb-2">

@@ -10,7 +10,7 @@ export const Footer: React.FC = () => {
         {/* Exhibition Note */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-2 text-xs font-semibold text-slate-600 dark:text-slate-400">
           <span className="flex items-center gap-1 text-blue-600 dark:text-blue-400">
-            <Award className="w-4 h-4" /> 8th Standard National Science Fair
+            <Award className="w-4 h-4" /> 9th Standard National Science Fair
           </span>
           <span className="hidden sm:inline">&bull;</span>
           <span>Theme: Artificial Intelligence, Data Patterns & Ethics</span>

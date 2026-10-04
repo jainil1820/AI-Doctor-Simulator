@@ -102,7 +102,7 @@ export const HowAiLearnsSection: React.FC = () => {
         })}
       </div>
 
-      {/* 8th Grade Science Fair Summary Callout */}
+      {/* 9th Standard Science Fair Summary Callout */}
       <div className="p-4 md:p-5 rounded-2xl bg-gradient-to-r from-blue-500/10 via-teal-500/10 to-purple-500/10 border border-blue-500/20 flex flex-col sm:flex-row items-start sm:items-center gap-4 text-xs md:text-sm text-slate-700 dark:text-slate-300">
         <div className="p-3 bg-blue-500 text-white rounded-2xl shrink-0">
           <Lightbulb className="w-6 h-6" />

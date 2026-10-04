@@ -1,5 +1,6 @@
 import jsPDF from 'jspdf';
 import type { MatchResult } from '../types';
+import { getDiseaseSolution } from '../data/diseaseSolutions';
 
 export async function exportReportAsPdf(
   result: MatchResult,
@@ -19,7 +20,7 @@ export async function exportReportAsPdf(
 
   doc.setFontSize(10);
   doc.setFont('helvetica', 'normal');
-  doc.text('8th Standard National Science Fair Demonstration | Machine Learning Analytics', 14, 22);
+  doc.text('9th Standard National Science Fair Demonstration | Machine Learning Analytics', 14, 22);
 
   // Disclaimer Box
   doc.setFillColor(254, 243, 199);
@@ -29,7 +30,7 @@ export async function exportReportAsPdf(
   doc.setTextColor(146, 64, 14);
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(10);
-  doc.text('⚠️ STRICT EDUCATIONAL DISCLAIMER ONLY', 18, 41);
+  doc.text('⚠️ STRICT EDUCATIONAL & SCIENCE FAIR DISCLAIMER ONLY', 18, 41);
 
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(8.5);
@@ -39,7 +40,7 @@ export async function exportReportAsPdf(
     47
   );
   doc.text(
-    'It does NOT constitute a medical diagnosis. Always consult certified healthcare professionals.',
+    'It does NOT constitute a medical diagnosis or prescription. Always consult certified healthcare professionals.',
     18,
     52
   );
@@ -68,23 +69,65 @@ export async function exportReportAsPdf(
   // Transparent Reasoning
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(12);
-  doc.text('2. How the AI Calculated This Pattern', 14, 112);
+  doc.text('2. How the AI Calculated This Pattern', 14, 110);
 
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(9);
-  let yPos = 120;
+  let yPos = 117;
   result.reasonBullets.forEach((bullet) => {
     const lines = doc.splitTextToSize(`• ${bullet}`, 180);
     doc.text(lines, 14, yPos);
-    yPos += lines.length * 6;
+    yPos += lines.length * 5.5;
   });
 
-  // Top-3 Similar Fictional Cases
+  // Supportive Care Section (Source-Based)
+  const supportiveCare = getDiseaseSolution(result.category);
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(12);
-  doc.text('3. Nearest Fictional Training Vectors (KNN Match)', 14, yPos + 6);
+  doc.text('3. Source-Based Supportive Care / Home Guidance', 14, yPos + 4);
+  yPos += 11;
 
-  yPos += 14;
+  if (supportiveCare) {
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(10);
+    doc.text(`Condition: ${supportiveCare.nameEnglish} (${supportiveCare.nameGujarati})`, 14, yPos);
+    yPos += 6;
+
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(8.5);
+    supportiveCare.solutions.forEach((sol, idx) => {
+      const solTitle = `• Remedy ${idx + 1}: ${sol.titleEnglish} (${sol.titleGujarati})`;
+      doc.setFont('helvetica', 'bold');
+      doc.text(solTitle, 14, yPos);
+      yPos += 5;
+
+      doc.setFont('helvetica', 'normal');
+      const descLines = doc.splitTextToSize(sol.descriptionGujarati, 175);
+      doc.text(descLines, 18, yPos);
+      yPos += descLines.length * 4.5 + 2;
+    });
+  } else {
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(9);
+    doc.text(
+      'Supportive-care information for this condition is not available in the current source dataset.',
+      14,
+      yPos
+    );
+    yPos += 8;
+  }
+
+  // Top-3 Similar Fictional Cases
+  if (yPos > 240) {
+    doc.addPage();
+    yPos = 20;
+  }
+
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(12);
+  doc.text('4. Nearest Fictional Training Vectors (KNN Match)', 14, yPos + 4);
+
+  yPos += 12;
   result.topSimilarCases.forEach((c, idx) => {
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(9.5);
@@ -96,16 +139,21 @@ export async function exportReportAsPdf(
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(8.5);
     doc.text(`Recorded Symptoms: ${c.symptoms.join(', ') || 'None'}`, 18, yPos + 5);
-    yPos += 12;
+    yPos += 11;
   });
 
-  // Footer Note
-  doc.setFontSize(8);
-  doc.setTextColor(120, 120, 120);
+  // Educational Safety Disclaimer at end
+  doc.setFontSize(7.5);
+  doc.setTextColor(100, 100, 100);
   doc.text(
-    `Generated on ${new Date().toLocaleDateString()} at National Science Exhibition &bull; AI Doctor Simulator`,
+    'Important: This information is provided for educational/supportive-care purposes only. It is not a medical diagnosis, prescription, or substitute for professional medical care.',
     14,
-    285
+    282
+  );
+  doc.text(
+    `Generated on ${new Date().toLocaleDateString()} at 9th Standard National Science Exhibition • AI Doctor Simulator`,
+    14,
+    287
   );
 
   doc.save(`AI_Doctor_Simulator_Report_${result.category.replace(/\s+/g, '_')}.pdf`);

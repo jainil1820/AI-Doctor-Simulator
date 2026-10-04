@@ -274,7 +274,7 @@ export function App() {
               Essential AI Vocabulary
             </h3>
             <p className="text-xs md:text-sm text-slate-500 dark:text-slate-400">
-              Key machine learning terms explained for 8th-grade science students:
+              Key machine learning terms explained for 9th-grade science students:
             </p>
           </div>
 

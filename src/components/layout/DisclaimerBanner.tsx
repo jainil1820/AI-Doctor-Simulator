@@ -19,7 +19,7 @@ export const DisclaimerBanner: React.FC<DisclaimerBannerProps> = ({
             ⚠️ Educational Simulation Only
           </span>
           <span>
-            This web app does <strong>NOT</strong> diagnose diseases. Predictions are based on fictional 8th-standard science fair training examples. Always consult a certified physician.
+            This web app does <strong>NOT</strong> diagnose diseases. Predictions are based on fictional 9th-standard science fair training examples. Always consult a certified physician.
           </span>
         </div>
       </div>
@@ -37,7 +37,7 @@ export const DisclaimerBanner: React.FC<DisclaimerBannerProps> = ({
             <span>⚠️ Official Exhibition Disclaimer</span>
           </div>
           <p>
-            This application is purely an educational demonstration of <strong>Machine Learning Pattern Recognition</strong> for an 8th-grade science fair.
+            This application is purely an educational demonstration of <strong>Machine Learning Pattern Recognition</strong> for a 9th-standard science fair.
           </p>
           <p className="text-amber-800/80 dark:text-amber-300/80 text-[11px] md:text-xs">
             Predictions are calculated against a fictional dataset. Never use computer simulations for medical diagnosis. Always consult qualified healthcare professionals.
